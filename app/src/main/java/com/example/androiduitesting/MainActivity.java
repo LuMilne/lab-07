@@ -1,9 +1,12 @@
 package com.example.androiduitesting;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -62,6 +65,17 @@ public class MainActivity extends AppCompatActivity {
         deleteButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 cityAdapter.clear();
+            }
+        });
+
+        cityList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                String cityName = cityAdapter.getItem(i);
+                // Navigation method referenced from https://youtu.be/7g4RXGgaE7Q?si=neGcwp6qFTiEPEZy, 02/27/2026
+                Intent passToShow = new Intent(MainActivity.this, ShowActivity.class);
+                passToShow.putExtra("cityName",cityName);
+                startActivity(passToShow);
             }
         });
     }
